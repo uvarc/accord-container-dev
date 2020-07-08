@@ -56,4 +56,4 @@ ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
 USER user
 WORKDIR /home
-ENTRYPOINT [ "yarn", "--cwd=/home/theia" "theia", "start", "/home", "--hostname=0.0.0.0" ]
+ENTRYPOINT [ "yarn", "--cwd=/home/theia", "theia", "start", "/home", "--hostname=0.0.0.0" ]
