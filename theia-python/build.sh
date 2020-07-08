@@ -6,4 +6,4 @@ then
 	exit 1
 fi
 
-buildah bud -f Dockerfile -t $REGISTRY/accord/theia-python:latest --build-arg REGISTRY=$REGISTRY .
+podman build -f Dockerfile -t $REGISTRY/accord/theia-python:latest --build-arg REGISTRY=$REGISTRY .

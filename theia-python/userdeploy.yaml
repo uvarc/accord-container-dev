@@ -30,6 +30,7 @@ spec:
       containers:
       - image: registry.portal.linuxjedi.org/accord/theia-python:latest
         name: theia-python
+        imagePullPolicy: Always
         volumeMounts:
         - mountPath: /home/user
           name: nfs-user

@@ -55,5 +55,5 @@ EXPOSE 3000
 ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
 USER user
-WORKDIR /home
-ENTRYPOINT [ "yarn", "--cwd=/home/theia", "theia", "start", "/home", "--hostname=0.0.0.0" ]
+WORKDIR /home/theia
+ENTRYPOINT [ "yarn", "theia", "start", "/home", "--hostname=0.0.0.0" ]
