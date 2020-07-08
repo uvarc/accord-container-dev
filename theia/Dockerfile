@@ -43,4 +43,4 @@ ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
 USER theia
 WORKDIR /home/theia
-ENTRYPOINT [ "yarn", "theia", "start", "/home", "--hostname=0.0.0.0" ]
+ENTRYPOINT [ "node", "/home/theia/src-gen/backend/main.js", "/home/project", "--hostname=0.0.0.0" ]
