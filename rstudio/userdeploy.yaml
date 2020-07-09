@@ -1,0 +1,86 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rstudio
+  name: rstudio
+  namespace: admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rstudio
+  template:
+    metadata:
+      labels:
+        app: rstudio
+    spec:
+      volumes:
+      - name: nfs-user
+        nfs: 
+          server: 192.168.86.105
+          path: /home/parse
+          readOnly: false
+      - name: nfs-project
+        nfs: 
+          server: 192.168.86.105
+          path: /home/project
+          readOnly: false
+      containers:
+      - image: registry.portal.linuxjedi.org/accord/rstudio:latest
+        name: rstudio
+        imagePullPolicy: Always
+        env:
+        - name: USER
+          value: "user"
+        - name: USERID
+          value: "1000"
+        - name: GROUPID
+          value: "1001"
+        - name: PASSWORD
+          value: "password"
+        - name: DISABLE_AUTH
+          value: "true"
+        - name: ADD
+          value: "shiny"
+        volumeMounts:
+        - mountPath: /home/user
+          name: nfs-user
+        - mountPath: /home/project
+          name: nfs-project
+      imagePullSecrets:
+      - name: local-reg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rstudio
+  name: rstudio
+  namespace: admin
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8787
+  selector:
+    app: rstudio
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: rstudio
+  namespace: admin
+  annotations:
+    ingress.kubernetes.io/auth-type: basic
+    ingress.kubernetes.io/auth-secret: basic-auth
+spec:
+  rules:
+    - host: rstudio.portal.linuxjedi.org
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: rstudio
+              servicePort: 80
