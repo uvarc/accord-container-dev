@@ -8,5 +8,7 @@ COPY start-notebook.sh /usr/local/bin/start-notebook.sh
 USER root
 # Temporary in lieu of a better solution
 RUN groupadd --gid 1001 project && \
-    usermod -g 1001 jovyan
+    usermod -g 1001 jovyan && \
+    mkdir -p /home/home && \
+    mkdir -p /home/project
 USER ${NB_UID}
