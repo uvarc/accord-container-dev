@@ -1,0 +1,11 @@
+FROM lnxjedi/gopherbot:amazon
+
+ARG kubectlvers=v1.18.6
+
+USER root
+
+RUN pip3 install awscli && \
+    curl -L -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${kubectlvers}/bin/linux/amd64/kubectl && \
+    chmod +x /usr/local/bin/kubectl
+
+USER 2
