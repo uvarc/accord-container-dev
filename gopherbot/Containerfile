@@ -9,7 +9,8 @@ RUN pip3 install awscli kubernetes && \
     chmod +x /usr/local/bin/kubectl && \
     mkdir -p /sbin/.vscode-server && \
     chown 2:root /sbin/.vscode-server && \
-    chmod u+rwx /sbin/.vscode-server
+    chmod u+rwx /sbin/.vscode-server && \
+    usermod -s /bin/bash -d /home/robot daemon
 
 # For amazonlinux, 2 == daemon. Numeric value needed for Kubernetes runAsNonRoot.
 USER 2
