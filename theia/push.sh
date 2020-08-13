@@ -1,9 +1,13 @@
 #!/bin/bash
 
+. ../.env
+WD=$(pwd)
+REPO=$(basename $WD)
+
 if [ ! "$REGISTRY" ]
 then
-	echo "REGISTRY unset"
+	echo "REGISTRY unset, run setenv.sh in parent dir."
 	exit 1
 fi
 
-podman push $REGISTRY/accord/theia:latest
+buildah push $REGISTRY/accord/$REPO:latest
