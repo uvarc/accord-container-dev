@@ -10,4 +10,6 @@ then
 	exit 1
 fi
 
-buildah push $REGISTRY/accord/$REPO:latest
+BUILDER=${1:-podman}
+
+$BUILDER push $REGISTRY/accord/$REPO:latest

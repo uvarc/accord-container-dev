@@ -10,4 +10,11 @@ then
 	exit 1
 fi
 
-podman build -f Dockerfile -t $REGISTRY/accord/$REPO:latest --build-arg REGISTRY=$REGISTRY .
+BUILDER=${1:-podman}
+
+if [ "$BUILDER" == "buildah" ]
+then
+	$BUILDER bud -f Dockerfile -t $REGISTRY/accord/$REPO:latest --build-arg REGISTRY=$REGISTRY .
+else
+	$BUILDER build -f Dockerfile -t $REGISTRY/accord/$REPO:latest --build-arg REGISTRY=$REGISTRY .
+fi
