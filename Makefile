@@ -15,16 +15,19 @@ endif
 all: $(THEIA_BUILDS)
 
 $(THEIA_BUILDS): theia-full $(WORKLOADS)
-	echo podman build -f Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst theia-%,%,$@) .
+	podman build -f Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst theia-%,%,$@) .
 
 $(WORKLOADS): centos7-base
-	echo podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
+	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
 
 theia-full: centos7-base
-	echo podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
+	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
 
 centos7-base:
-	echo podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
+	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
 
 base:
-	echo podman build --no-cache -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
+	podman build --no-cache -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
+
+prune:
+	podman container prune -f

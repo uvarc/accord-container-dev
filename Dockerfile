@@ -8,8 +8,8 @@ FROM ${REGISTRY}/accord/${WORKLOAD}:latest
 COPY --from=theia /usr/local /usr/local
 EXPOSE 3000
 ENV SHELL=/bin/bash \
-    THEIA_DEFAULT_PLUGINS=local-dir:/usr/local/theia/plugins \
-    USE_LOCAL_GIT=true
+  THEIA_DEFAULT_PLUGINS=local-dir:/usr/local/theia/plugins \
+  USE_LOCAL_GIT=true
 WORKDIR /usr/local/theia
 ENTRYPOINT [ "node", "/usr/local/theia/src-gen/backend/main.js", "/project", "--hostname=0.0.0.0" ]
 # /Theia boilerplate
