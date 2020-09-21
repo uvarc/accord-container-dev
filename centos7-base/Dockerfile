@@ -1,16 +1,15 @@
 FROM centos:7.8.2003
 
-RUN yum -y install epel-release && \
+RUN yum -y --setopt=skip_missing_names_on_install=false install epel-release && \
   yum -y update && \
-  yum -y install "https://repo.ius.io/ius-release-el7.rpm" && \
-  yum -y install \
+  yum -y --setopt=skip_missing_names_on_install=false install "https://repo.ius.io/ius-release-el7.rpm" && \
+  yum -y --setopt=skip_missing_names_on_install=false install \
     bzip2 \
-    git2u-all \
+    git224 \
     jq \
     less \
     make \
     patch \
-    openssh \
     unzip \
     vim-minimal \
     which && \
