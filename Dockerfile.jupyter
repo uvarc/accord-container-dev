@@ -1,0 +1,13 @@
+ARG REGISTRY
+ARG WORKLOAD
+FROM ${REGISTRY}/accord/jupyterlab:latest as jupyterlab
+
+FROM ${REGISTRY}/accord/${WORKLOAD}:latest
+
+# Jupyter boilerplate
+COPY --from=jupyterlab /usr/local /usr/local
+EXPOSE 8888
+WORKDIR /project
+USER 490
+ENTRYPOINT [ "jupyter", "lab" ]
+# /Jupyter boilerplate

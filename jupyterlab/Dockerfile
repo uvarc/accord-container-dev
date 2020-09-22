@@ -1,14 +1,7 @@
-FROM jupyter/scipy-notebook:latest
+ARG REGISTRY
+FROM ${REGISTRY}/accord/centos7-base:latest
 
-# Full skel for homedir, configures notebook for no auth
-COPY skel.tar.gz /usr/local/lib/skel.tar.gz
-# Un-tar the skel dir before starting the notebook
-COPY start-notebook.sh /usr/local/bin/start-notebook.sh
-
-USER root
-# Temporary in lieu of a better solution
-RUN groupadd --gid 1001 project && \
-    usermod -g 1001 jovyan && \
-    mkdir -p /home/home && \
-    mkdir -p /home/project
-USER ${NB_UID}
+RUN pip3 install jupyterlab && \
+  # smoke test
+  jupyter lab --version
+COPY disable-auth.json /usr/local/etc/jupyter/jupyter_notebook_config.d/disable-auth.json

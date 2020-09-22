@@ -78,8 +78,3 @@ RUN chmod 0755 ${THEIA_HOME} && \
   echo *.spec.* >> .yarnclean && \
   yarn autoclean --force && \
   yarn cache clean
-ENV SHELL=/bin/bash \
-  THEIA_DEFAULT_PLUGINS=local-dir:${THEIA_HOME}/plugins \
-  USE_LOCAL_GIT=true
-EXPOSE 3000
-ENTRYPOINT [ "node", "/usr/local/theia/src-gen/backend/main.js", "/project", "--hostname=0.0.0.0" ]
