@@ -27,7 +27,7 @@ centos7-base:
 	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
 
 base:
-	podman build --no-cache -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
+	podman build --no-cache -f centos7-base/Dockerfile -t $(REGISTRY)/accord/centos7-base:latest --build-arg REGISTRY=$(REGISTRY) centos7-base
 
 prune:
 	podman container prune -f

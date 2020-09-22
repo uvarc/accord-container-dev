@@ -10,8 +10,15 @@ RUN yum -y --setopt=skip_missing_names_on_install=false install epel-release && 
     less \
     make \
     patch \
+    python3 \
+    python3-pip \
     unzip \
     vim-minimal \
     which && \
   yum clean all && \
-  rm -rf /var/cache/yum
+  rm -rf /var/cache/yum && \
+  groupadd --gid 490 project && \
+  useradd --gid 490 --uid 490 user && \
+  mkdir /project && \
+  mkdir /scratch && \
+  chown user:project /project /scratch
