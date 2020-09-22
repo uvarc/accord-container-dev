@@ -12,5 +12,5 @@ ENV SHELL=/bin/bash \
   USE_LOCAL_GIT=true
 WORKDIR /usr/local/theia
 USER 490
-ENTRYPOINT [ "node", "/usr/local/theia/src-gen/backend/main.js", "/project", "--hostname=0.0.0.0" ]
+ENTRYPOINT [ "node", "/usr/local/theia/src-gen/backend/main.js", "/home", "--hostname=0.0.0.0" ]
 # /Theia boilerplate

@@ -18,7 +18,8 @@ RUN yum -y --setopt=skip_missing_names_on_install=false install epel-release && 
   yum clean all && \
   rm -rf /var/cache/yum && \
   groupadd --gid 490 project && \
-  useradd --gid 490 --uid 490 user && \
-  mkdir /project && \
-  mkdir /scratch && \
-  chown user:project /project /scratch
+  useradd --home-dir /home/homedir --gid 490 --uid 490 user && \
+  mkdir /home/project && \
+  mkdir /home/scratch && \
+  chown root:project /home/project /home/scratch && \
+  chmod 775 /home/project /home/scratch

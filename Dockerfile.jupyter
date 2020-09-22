@@ -7,7 +7,7 @@ FROM ${REGISTRY}/accord/${WORKLOAD}:latest
 # Jupyter boilerplate
 COPY --from=jupyterlab /usr/local /usr/local
 EXPOSE 8888
-WORKDIR /project
+WORKDIR /home
 USER 490
 ENTRYPOINT [ "jupyter", "lab" ]
 # /Jupyter boilerplate
