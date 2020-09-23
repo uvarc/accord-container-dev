@@ -1,11 +1,8 @@
 ARG REGISTRY
 ARG WORKLOAD
-FROM ${REGISTRY}/accord/theia-full:latest as theia
-
 FROM ${REGISTRY}/accord/${WORKLOAD}:latest
 
 # Theia boilerplate
-COPY --from=theia /usr/local /usr/local
 EXPOSE 3000
 ENV SHELL=/bin/bash \
   THEIA_DEFAULT_PLUGINS=local-dir:/usr/local/theia/plugins \

@@ -11,6 +11,9 @@ fi
 if [ "$1" = "theia" ]
 then
     podman run -it -p 3000 --name theia theia-python
-else
+elif [ "$1" = "jupyter" ]
+then
     podman run -it -p 8888 --name jupyter jupyter-python
+else
+    podman run -it -p 8787 --name rstudio rstudio-r
 fi

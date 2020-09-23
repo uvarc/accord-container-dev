@@ -3,17 +3,19 @@
 # force a full rebuild, use `make base; make`
 
 # Common workloads for Theia and Jupyter
-COMMON_WORKLOADS = test-workload python
+COMMON_WORKLOADS = python
 
 # Here we can add additional per-interface workloads
 THEIA_WORKLOADS = bcftools $(COMMON_WORKLOADS)
 JUPYTER_WORKLOADS = $(COMMON_WORKLOADS)
+RSTUDIO_WORKLOADS = r
 
 # Generate the union
-WORKLOADS = $(sort $(THEIA_WORKLOADS) $(JUPYTER_WORKLOADS))
+WORKLOADS = $(sort $(THEIA_WORKLOADS) $(JUPYTER_WORKLOADS) $(RSTUDIO_WORKLOADS))
 
 THEIA_BUILDS = $(addprefix theia-, $(THEIA_WORKLOADS))
 JUPYTER_BUILDS = $(addprefix jupyter-, $(JUPYTER_WORKLOADS))
+RSTUDIO_BUILDS = $(addprefix rstudio-, $(RSTUDIO_WORKLOADS))
 
 include .env
 
@@ -21,23 +23,26 @@ ifndef REGISTRY
 $(error REGISTRY is not set, see .env)
 endif
 
-.PHONY: all theia-full jupyterlab centos7-base $(THEIA_BUILDS) $(THEIA_WORKLOADS) $(JUPYTER_WORKLOADS)
+.PHONY: all theia-jupyter-base rstudio-base centos7-base $(THEIA_BUILDS) $(JUPYTER_BUILDS) $(RSTUDIO_BUILDS) $(WORKLOADS)
 
-all: $(THEIA_BUILDS) $(JUPYTER_BUILDS)
+all: $(THEIA_BUILDS) $(JUPYTER_BUILDS) $(RSTUDIO_BUILDS)
 
-$(THEIA_BUILDS): theia-full $(THEIA_WORKLOADS)
+$(THEIA_BUILDS): theia-jupyter-base $(THEIA_WORKLOADS)
 	podman build -f Dockerfile.theia -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst theia-%,%,$@) .
 
-$(JUPYTER_BUILDS): jupyterlab $(JUPYTER_WORKLOADS)
+$(JUPYTER_BUILDS): theia-jupyter-base $(JUPYTER_WORKLOADS)
 	podman build -f Dockerfile.jupyter -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst jupyter-%,%,$@) .
 
-$(WORKLOADS): centos7-base
+$(RSTUDIO_BUILDS): rstudio-base $(RSTUDIO_WORKLOADS)
+	podman build -f Dockerfile.rstudio -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst rstudio-%,%,$@) .
+
+$(WORKLOADS): theia-jupyter-base
 	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
 
-theia-full: centos7-base
+theia-jupyter-base: centos7-base
 	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
 
-jupyterlab: centos7-base
+rstudio-base: centos7-base
 	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
 
 centos7-base:

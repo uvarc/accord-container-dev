@@ -2,9 +2,9 @@ ARG REGISTRY
 ARG WORKLOAD
 FROM ${REGISTRY}/accord/${WORKLOAD}:latest
 
-# Jupyter boilerplate
-EXPOSE 8888
+# RStudio boilerplate
+EXPOSE 8787
 WORKDIR /home
 USER 490
-ENTRYPOINT [ "jupyter", "lab" ]
-# /Jupyter boilerplate
+# ENTRYPOINT [ "jupyter", "lab" ]
+# /RStudio boilerplate

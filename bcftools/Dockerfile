@@ -1,5 +1,5 @@
 ARG REGISTRY
-FROM ${REGISTRY}/accord/centos7-base:latest
+FROM ${REGISTRY}/accord/theia-jupyter-base:latest
 
 LABEL maintainer=khs3z@virginia.edu
 
