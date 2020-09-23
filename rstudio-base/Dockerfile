@@ -8,3 +8,4 @@ RUN yum -y --setopt=skip_missing_names_on_install=false install \
   yum clean all && \
   rm -rf /var/cache/yum && \
   chmod 1777 /var/run/rstudio-server
+COPY database.conf /etc/rstudio/database.conf

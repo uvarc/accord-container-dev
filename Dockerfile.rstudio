@@ -4,7 +4,8 @@ FROM ${REGISTRY}/accord/${WORKLOAD}:latest
 
 # RStudio boilerplate
 EXPOSE 8787
+ENV USER=user
 WORKDIR /home
 USER 490
-ENTRYPOINT [ "/usr/lib/rstudio-server/bin/rserver", "--server-working-dir=/home", "--server-user=user", "--auth-minimum-user-id=490" ]
+ENTRYPOINT [ "/usr/lib/rstudio-server/bin/rserver", "--auth-minimum-user-id=490" ]
 # /RStudio boilerplate
