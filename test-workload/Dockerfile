@@ -1,3 +1,0 @@
-ARG REGISTRY
-FROM ${REGISTRY}/accord/centos7-base:latest
-COPY hello-world.sh /usr/local/bin/hello-world.sh

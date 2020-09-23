@@ -6,5 +6,5 @@ FROM ${REGISTRY}/accord/${WORKLOAD}:latest
 EXPOSE 8787
 WORKDIR /home
 USER 490
-# ENTRYPOINT [ "jupyter", "lab" ]
+ENTRYPOINT [ "/usr/lib/rstudio-server/bin/rserver", "--server-working-dir=/home", "--server-user=user", "--auth-minimum-user-id=490" ]
 # /RStudio boilerplate
