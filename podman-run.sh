@@ -14,6 +14,9 @@ then
 elif [ "$1" = "jupyter" ]
 then
     podman run -it -p 8888 --name jupyter jupyter-python
-else
+elif [ "$1" = "rstudio" ]
+then
     podman run -it -p 8787 --name rstudio rstudio-r
+else
+    podman run -it -p 8787 --name c7base centos7-base
 fi
