@@ -34,6 +34,7 @@ metadata:
   labels:
     workload: "$WORKLOAD"
     interface: "$INTERFACE"
+    class: "userpod"
   name: "$INTERFACE-$WORKLOAD"
   namespace: "accord"
 EOF
