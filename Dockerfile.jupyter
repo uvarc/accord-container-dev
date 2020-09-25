@@ -1,6 +1,7 @@
 ARG REGISTRY
 ARG WORKLOAD
 FROM ${REGISTRY}/accord/${WORKLOAD}:latest
+RUN find / -xdev -perm -u=s -type f -exec chmod u-s \{\} \;
 
 # Jupyter boilerplate
 EXPOSE 8888

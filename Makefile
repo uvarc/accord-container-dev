@@ -23,18 +23,29 @@ ifndef REGISTRY
 $(error REGISTRY is not set, see .env)
 endif
 
-.PHONY: all theia-jupyter-base rstudio-base centos7-base $(THEIA_BUILDS) $(JUPYTER_BUILDS) $(RSTUDIO_BUILDS) $(WORKLOADS)
+.PHONY: all publish theia-jupyter-base rstudio-base centos7-base $(THEIA_BUILDS) $(JUPYTER_BUILDS) $(RSTUDIO_BUILDS) $(WORKLOADS)
 
 all: $(THEIA_BUILDS) $(JUPYTER_BUILDS) $(RSTUDIO_BUILDS)
 
+# Publish configmaps to the accord namespace in the cluster
+publish:
+	kubectl apply -f configmaps/
+
+# Push container images to $REGISTRY
+push:
+	./push-images.sh $(THEIA_BUILDS) $(JUPYTER_BUILDS) $(RSTUDIO_BUILDS)
+
 $(THEIA_BUILDS): theia-jupyter-base $(THEIA_WORKLOADS)
 	podman build -f Dockerfile.theia -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst theia-%,%,$@) .
+	./generate-configmap.sh centos7-base theia $(patsubst theia-%,%,$@) 3000
 
 $(JUPYTER_BUILDS): theia-jupyter-base $(JUPYTER_WORKLOADS)
 	podman build -f Dockerfile.jupyter -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst jupyter-%,%,$@) .
+	./generate-configmap.sh centos7-base jupyter $(patsubst jupyter-%,%,$@) 8888
 
 $(RSTUDIO_BUILDS): rstudio-base $(RSTUDIO_WORKLOADS)
 	podman build -f Dockerfile.rstudio -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) --build-arg WORKLOAD=$(patsubst rstudio-%,%,$@) .
+	./generate-configmap.sh centos7-base rstudio $(patsubst rstudio-%,%,$@) 8787
 
 $(WORKLOADS): theia-jupyter-base
 	podman build -f $@/Dockerfile -t $(REGISTRY)/accord/$@:latest --build-arg REGISTRY=$(REGISTRY) $@
