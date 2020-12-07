@@ -12,7 +12,8 @@ RUN dnf -y update && \
     python3-pip \
     unzip \
     vim-minimal \
-    which && \
+    which \
+    xz && \
   dnf clean all && \
   rm -rf /var/cache /var/log/dnf* /var/log/dnf.* && \
   groupadd --gid 490 project && \
