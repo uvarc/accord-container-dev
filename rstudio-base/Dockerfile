@@ -1,4 +1,4 @@
-FROM quay.io/accord/userpod-ubi8-base:latest
+FROM quay.io/accord/centos8-base:latest
 
 RUN dnf -y install R && \
   dnf -y install https://s3.amazonaws.com/rstudio-ide-build/desktop/centos8/x86_64/rstudio-1.4.1081-x86_64.rpm && \

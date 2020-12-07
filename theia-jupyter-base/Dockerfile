@@ -1,4 +1,4 @@
-FROM quay.io/accord/userpod-ubi8-base:latest
+FROM quay.io/accord/centos8-base:latest
 
 ENV NODE_VERSION 12.20.0
 ENV YARN_VERSION 1.22.5
