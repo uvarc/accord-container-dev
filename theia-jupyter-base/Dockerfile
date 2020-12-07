@@ -1,7 +1,6 @@
-ARG REGISTRY
-FROM ${REGISTRY}/accord/centos7-base:latest
+FROM quay.io/accord/userpod-ubi8-base:latest
 
-ENV NODE_VERSION 12.18.4
+ENV NODE_VERSION 12.20.0
 ENV YARN_VERSION 1.22.5
 ENV ARCH x64
 
@@ -12,6 +11,7 @@ RUN ARCH=${ARCH} \
   && for key in \
     4ED778F539E3634C779C87C6D7062848A1AB005C \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
+    1C050899334244A8AF75E53792EF661D867B9DFA \
     71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
     8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 \
     C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
@@ -67,6 +67,7 @@ RUN yum -y install \
   rm -rf /var/cache/yum
 
 WORKDIR ${THEIA_HOME}
+# Retrieved from https://raw.githubusercontent.com/theia-ide/theia-apps/master/theia-full-docker/latest.package.json
 ADD ${THEIA_VERSION}.package.json ./package.json
 ARG GITHUB_TOKEN
 RUN chmod 0755 ${THEIA_HOME} && \
