@@ -3,6 +3,8 @@ FROM registry.centos.org/centos:8
 RUN dnf -y update && \
   dnf -y install \
     bzip2 \
+    gcc \
+    gcc-c++ \
     git \
     jq \
     less \
