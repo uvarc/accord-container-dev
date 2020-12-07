@@ -1,4 +1,4 @@
-FROM quay.io/app-sre/ubi8-ubi:8.3
+FROM registry.centos.org/centos:8
 
 RUN dnf -y update && \
   dnf -y install \
