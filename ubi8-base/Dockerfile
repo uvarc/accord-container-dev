@@ -1,11 +1,9 @@
-FROM centos:7.8.2003
+FROM quay.io/app-sre/ubi8-ubi:8.3
 
-RUN yum -y --setopt=skip_missing_names_on_install=false install epel-release && \
-  yum -y update && \
-  yum -y --setopt=skip_missing_names_on_install=false install "https://repo.ius.io/ius-release-el7.rpm" && \
-  yum -y --setopt=skip_missing_names_on_install=false install \
+RUN dnf -y update && \
+  dnf -y install \
     bzip2 \
-    git224 \
+    git \
     jq \
     less \
     make \
@@ -15,10 +13,10 @@ RUN yum -y --setopt=skip_missing_names_on_install=false install epel-release && 
     unzip \
     vim-minimal \
     which && \
-  yum clean all && \
-  rm -rf /var/cache/yum && \
+  dnf clean all && \
+  rm -rf /var/cache /var/log/dnf* /var/log/dnf.* && \
   groupadd --gid 490 project && \
-  useradd --home-dir /home/homedir --gid 490 --uid 490 user && \
+  useradd --home-dir /home/user --gid 490 --uid 490 user && \
   mkdir /home/project && \
   mkdir /home/scratch && \
   chown root:project /home/project /home/scratch && \
