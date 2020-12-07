@@ -58,14 +58,6 @@ RUN set -ex \
 ARG THEIA_VERSION=latest
 ARG THEIA_HOME=/usr/local/theia
 
-RUN yum -y install \
-  python \
-  make \
-  gcc \
-  gcc-c++ && \
-  yum clean all && \
-  rm -rf /var/cache/yum
-
 WORKDIR ${THEIA_HOME}
 # Retrieved from https://raw.githubusercontent.com/theia-ide/theia-apps/master/theia-full-docker/latest.package.json
 ADD ${THEIA_VERSION}.package.json ./package.json
