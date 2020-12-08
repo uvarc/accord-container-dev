@@ -9,3 +9,4 @@ RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
   rm -rf /var/cache /var/log/dnf* /var/log/dnf.* && \
   chmod 1777 /var/run/rstudio-server
 COPY database.conf /etc/rstudio/database.conf
+COPY entrypoint-rstudio.sh /usr/local/bin/

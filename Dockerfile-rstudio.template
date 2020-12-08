@@ -6,5 +6,5 @@ EXPOSE 8787
 ENV USER=user
 WORKDIR /home
 USER 490
-ENTRYPOINT [ "/usr/lib/rstudio-server/bin/rserver", "--auth-minimum-user-id=490" ]
+ENTRYPOINT [ "entrypoint-rstudio.sh" ]
 # /RStudio boilerplate

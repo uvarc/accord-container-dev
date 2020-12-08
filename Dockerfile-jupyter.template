@@ -5,5 +5,5 @@ FROM quay.io/accord/<workload>:latest
 EXPOSE 8888
 WORKDIR /home
 USER 490
-ENTRYPOINT [ "jupyter", "lab" ]
+ENTRYPOINT [ "entrypoint-jupyter.sh" ]
 # /Jupyter boilerplate

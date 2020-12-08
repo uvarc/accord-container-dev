@@ -32,4 +32,5 @@ systemd-journal:x:190:
 systemd-coredump:x:997:
 systemd-resolve:x:193:
 ssh_keys:x:996:
-project:x:<GID>:
+user:x:<UGID>
+project:x:<PGID>:

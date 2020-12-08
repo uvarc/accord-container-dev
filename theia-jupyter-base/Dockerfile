@@ -79,3 +79,4 @@ RUN pip3 install jupyterlab && \
   jupyter lab --version
 # Disable jupyter authentication - provided by authenticating proxy
 COPY jupyter_notebook_config.py /usr/local/etc/jupyter/jupyter_notebook_config.py
+COPY entrypoint-theia.sh entrypoint-jupyter.sh /usr/local/bin/
