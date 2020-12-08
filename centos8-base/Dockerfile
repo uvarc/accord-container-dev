@@ -1,6 +1,9 @@
 FROM registry.centos.org/centos:8
 
-RUN dnf -y update && \
+ADD http://worldtimeapi.org/api/timezone/Etc/UTC.txt /timestamp
+
+RUN chmod 0644 /timestamp && \
+  dnf -y update && \
   dnf -y install \
     bzip2 \
     gcc \
