@@ -10,12 +10,6 @@ then
     exit 1
 fi
 
-if [ ! "$GITHUB_TOKEN" ]
-then
-    echo "GITHUB_TOKEN not set in environment"
-    exit 1
-fi
-
 if [ ! "$1" ]
 then
     echo "Missing argument: <container-name>"
@@ -44,7 +38,7 @@ then
     exit 1
 fi
 
-COMMIT=$(gh api /repos/uvarc/accord-container-dev/branches | jq -r '.[] | select(.name=="master") | .commit.sha')
+COMMIT=$(git rev-parse HEAD)
 
 echo "Building master/commit: $COMMIT"
 
