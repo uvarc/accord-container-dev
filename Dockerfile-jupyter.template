@@ -1,0 +1,9 @@
+FROM quay.io/accord/<workload>:latest
+# NOTE: the workload container must be based on theia-jupyter-base
+
+# Jupyter boilerplate
+EXPOSE 8888
+WORKDIR /home
+USER 490
+ENTRYPOINT [ "jupyter", "lab" ]
+# /Jupyter boilerplate

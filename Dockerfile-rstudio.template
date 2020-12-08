@@ -1,7 +1,5 @@
-ARG REGISTRY
-ARG WORKLOAD
-FROM ${REGISTRY}/accord/${WORKLOAD}:latest
-RUN find / -xdev -perm -u=s -type f -exec chmod u-s \{\} \;
+FROM quay.io/accord/<workload>:latest
+# NOTE: the workload container must be based on rstudio-base
 
 # RStudio boilerplate
 EXPOSE 8787
