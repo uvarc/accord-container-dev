@@ -21,7 +21,7 @@ else
     GROUP="$(cat $BASE/group | while read LINE; do echo '   ' $LINE; done)"
 fi
 
-cat > configmaps/$INTERFACE-$WORKLOAD.yaml <<EOF
+cat <<EOF
 apiVersion: "v1"
 kind: "ConfigMap"
 data:
@@ -36,5 +36,4 @@ metadata:
     interface: "$INTERFACE"
     class: "userpod"
   name: "$INTERFACE-$WORKLOAD"
-  namespace: "accord"
 EOF

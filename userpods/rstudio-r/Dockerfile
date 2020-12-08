@@ -1,7 +1,6 @@
 FROM quay.io/accord/rstudio-base:latest
 
-USER root
-< ... add workload stuff here! ... >
+# No changes for rstudio-r
 
 # RStudio boilerplate
 EXPOSE 8787

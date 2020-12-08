@@ -1,7 +1,6 @@
 FROM quay.io/accord/theia-jupyter-base:latest
 
-USER root
-< ... add workload stuff here! ... >
+# No changes for jupyter-python
 
 # Jupyter boilerplate
 EXPOSE 8888

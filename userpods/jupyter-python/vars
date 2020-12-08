@@ -1,0 +1,3 @@
+OSBASE=centos8-base
+UIBASE=theia-jupyter-base
+PORT=8888
