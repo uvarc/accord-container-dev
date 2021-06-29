@@ -1,8 +1,11 @@
 FROM quay.io/accord/theia-jupyter-base:latest
 
-# No changes for jupyter-python
+# Basic config changes for jupyter-python
+RUN ln -s /usr/bin/pip3 /usr/bin/pip && ln -s /usr/bin/python3 /usr/bin/python
+ENV PIP_TARGET=/home/user/.local/
 
 # Jupyter boilerplate
+
 EXPOSE 8888
 WORKDIR /home
 USER 490
